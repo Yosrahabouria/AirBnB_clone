@@ -3,7 +3,7 @@
 
 from models.base_model import BaseModel
 
-class city(BaseModel):
+class City(BaseModel):
     """class heritating from BaseModel
       Args:
           state_id: input value
@@ -12,6 +12,7 @@ class city(BaseModel):
 
     state_id = ""
     name = ""
+    
     def __init__(self, *args, **kwargs):
-        """initialization of city"""
+        """initialization of City"""
         super().__init__(self, *args, **kwargs)
