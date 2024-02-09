@@ -3,7 +3,8 @@
 
 from models.base_model import BaseModel
 
-class city(BaseModel):
+
+class User(BaseModel):
     """class heritating from BaseModel
       Args:
           email: input value
