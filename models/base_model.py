@@ -47,7 +47,6 @@ class BaseModel:
             *args: input value
             **kwargs: input value
         """
-<<<<<<< HEAD
         if kwargs:
             kwargs['created_at'] = datetime.strptime(kwargs['crated_at'], '%Y-%m-%dT%H:%M:%S.%f')
             kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'], '%Y-%m-%dT%H:%M:%S.%f')
@@ -60,7 +59,7 @@ class BaseModel:
                 self.created_at = datetime.now()
                 self.updated_at = datetime.now()
                 models.storage.new(self)
-=======
+
         if not kwargs:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
@@ -75,4 +74,3 @@ class BaseModel:
             for key, value in kwargs.items():
                 if key != '__class__':
                     setattr(self, key, value)
->>>>>>> d36bee8b3928f6489ceb55ed252abd55cb6e56ec
