@@ -9,20 +9,12 @@ from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
 
-<<<<<<< HEAD
-
 class FileStorage():
-    """Représente un moteur de stockage abstrait.
-    Attributs:
-        __file_path (str): Le nom du fichier pour sauvegarder les objets.
-        __objects (dict): Un dictionnaire des objets instanciés.
-=======
-class FileStorage:
     """Representation of abstract storage engine.
     Attributes:
         __file_path (str): The name of the file to save objects.
         __objects (dict): A dictionary of instantiated objects.
->>>>>>> 160f6a61c4f65e1c3d7361bc7f81265293cf2608
+
     """
     __file_path = "file.json"
     __objects = {}
