@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Defines the HBnB console."""
+"""Definition of the HBnB console."""
 
 import cmd
 import re
@@ -15,7 +15,7 @@ from models.review import Review
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
-    classes = {
+    model_classes = {
         "BaseModel": BaseModel,
         "User": User,
         "State": State,
@@ -26,9 +26,11 @@ class HBNBCommand(cmd.Cmd):
     }
 
     def emptyline(self):
+        """empty inputline method"""
         pass
 
     def default(self, arg):
+        """Handling default command method"""
         commands = {
             "all": self.do_all,
             "show": self.do_show,
@@ -39,92 +41,100 @@ class HBNBCommand(cmd.Cmd):
         match = re.search(r"\.", arg)
         if match:
             parts = arg.split(".")
-            cls_name, method = parts[0], parts[1]
+            class_name, method = parts[0], parts[1]
             match = re.search(r"\((.*?)\)", method)
             if match:
                 command = method[:match.span()[0]].strip(), match.group()[1:-1]
                 if command[0] in commands:
-                    return commands[command[0]](cls_name + " " + command[1])
+                    return commands[command[0]](class_name + " " + command[1])
         print("*** Unknown syntax: {}".format(arg))
 
     def do_quit(self, arg):
+        """Exit method"""
         return True
 
     def do_EOF(self, arg):
+        """Handle End-of-File method"""
         print("")
         return True
 
     def do_create(self, arg):
+        """Creation of a new instance method"""
         args = arg.split()
         if not args:
             print("** class name missing **")
-        elif args[0] not in self.classes:
+        elif args[0] not in self.model_classes:
             print("** class doesn't exist **")
         else:
-            instance = self.classes[args[0]]()
+            instance = self.model_classes[args[0]]()
             instance.save()
             print(instance.id)
 
     def do_show(self, arg):
+        """Show the string method"""
         args = arg.split()
         if not args:
             print("** class name missing **")
-        elif args[0] not in self.classes:
+        elif args[0] not in self.model_classes:
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
         else:
-            objs = storage.all()
+            objects = storage.all()
             key = "{}.{}".format(args[0], args[1])
-            if key not in objs:
+            if key not in objects:
                 print("** no instance found **")
             else:
-                print(objs[key])
+                print(objects[key])
 
     def do_destroy(self, arg):
+        """Delete an instance method"""
         args = arg.split()
         if not args:
             print("** class name missing **")
-        elif args[0] not in self.classes:
+        elif args[0] not in self.model_classes:
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
         else:
-            objs = storage.all()
+            objects = storage.all()
             key = "{}.{}".format(args[0], args[1])
-            if key not in objs:
+            if key not in objects:
                 print("** no instance found **")
             else:
-                del objs[key]
+                del objects[key]
                 storage.save()
 
     def do_all(self, arg):
+        """Print string method"""
         args = arg.split()
-        if args and args[0] not in self.classes:
+        if args and args[0] not in self.model_classes:
             print("** class doesn't exist **")
         else:
-            objs = storage.all()
+            objects = storage.all()
             if args:
-                print([str(obj) for obj in objs.values() if isinstance(obj, self.classes[args[0]])])
+                print([str(obj) for obj in objects.values() if isinstance(obj, self.model_classes[args[0]])])
             else:
-                print([str(obj) for obj in objs.values()])
+                print([str(obj) for obj in objects.values()])
 
     def do_count(self, arg):
+        """Count method"""
         args = arg.split()
         if not args:
             print("** class name missing **")
-        elif args[0] not in self.classes:
+        elif args[0] not in self.model_classes:
             print("** class doesn't exist **")
         else:
-            count = sum(1 for obj in storage.all().values() if isinstance(obj, self.classes[args[0]]))
+            count = sum(1 for obj in storage.all().values() if isinstance(obj, self.model_classes[args[0]]))
             print(count)
 
     def do_update(self, arg):
+        """Update method"""
         args = arg.split()
         if not args:
             print("** class name missing **")
             return
-        elif args[0] not in self.classes:
+        elif args[0] not in self.model_classes:
             print("** class doesn't exist **")
             return
         elif len(args) < 2:
@@ -146,4 +156,4 @@ class HBNBCommand(cmd.Cmd):
 
 
 if __name__ == "__main__":
-    HBNBCommand().cmdloop()    
+    HBNBCommand().cmdloop()
