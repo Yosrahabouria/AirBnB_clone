@@ -1,0 +1,166 @@
+
+
+.filters{
+    color: #000;
+    height: 70px;
+    display: flex;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    align-items: center;
+    justify-content: center;
+    margin-right: 30px;
+    gap: 35px;
+    position: relative;
+
+}
+
+.filters button {
+    font-size: 18px;
+    background-color: #FF5A5F;
+    color: #FFFFFF;
+    height: 48px;
+    width: 20%;
+    border:none;
+    border-radius: 4px;
+}
+.filters button:hover {
+    opacity: 90%;
+}
+
+.locations, .amenities{
+    height: 100%;
+    width: 25%;
+
+}
+.locations {
+    border-right: 1px solid #DDDDDD;
+}
+
+.filters h3 {
+    font-weight: 600;
+    margin: 11px 20px 8px;
+}
+.filters h4 {
+    font-weight: 400;
+    font-size: 14px;
+    margin: 2px 20px;
+}
+.popover{
+    display: none;
+    background-color: #FAFAFA;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    width: 250px;
+    padding: 20px;
+    list-style: none
+}
+
+.popover ul {
+    list-style-type: none;
+}
+
+.popover h2 {
+    font-size: 16px;
+}
+
+.popover li {
+    margin: 10px 0px 5px 0px; 
+    list-style: none;
+    padding-left: 20px;
+    display: block;
+    grid-row-gap: 4px;
+}
+.locations:hover > .popover {
+    display: block;
+    }
+    
+.amenities:hover > .popover {
+        display: block;
+}
+
+@media only screen and (max-width: 1030px) 
+{
+    .filters {
+        width: 90%;
+        height: auto;
+        margin: 0 auto;
+        padding: 0 10px;
+
+    }
+   
+}
+@media only screen and (max-width: 600px) 
+{
+    .filters .locations,.filters .amenities {
+        width: 35%;
+    }
+    .filters .locations ul, .filters .amenities ul  {
+        padding: 0.7em;
+      }
+    .filters .locations li {
+        margin: 0 0 0 5%;
+        padding: 0;
+    }
+
+}
+@media only screen and (max-width: 360px) 
+{
+    .filters button {
+        font-size: 12px;
+        justify-content: center;
+        right: 8px;
+        width: 25%;
+        padding: 10px;
+    }
+    .filters {
+        padding: 10px 15px;
+        flex-direction: column;
+
+    }
+}
+@media only screen and (max-width: 350px) 
+{
+    .filters .locations,.filters .amenities {
+        width: 90%;
+        font-size: 1em;
+        border-right: none;
+    }
+    .filters .locations h3,  .filters .amenities h3{
+        font-size: 1.1em;
+        margin: 2px 7px;
+    }
+    .locations h4,  .amenities h4{
+        font-weight: 400;
+        font-size: 0.9em;
+        margin: 2px 7px;    
+    }
+    .filters .locations ul {
+        padding: 0.1em;
+      }
+    .filters .amenities ul {
+        padding: 0.8em;
+
+    }
+}
+@media only screen and (max-width: 280px) 
+{
+    .filters button {
+        font-size: 12px;
+        width: 90%;
+        padding: 0;
+    }
+    .popover h2 {
+        font-size: 11px;
+    }
+    
+}
+@media only screen and (max-width: 250px) 
+{
+    
+    .filters .locations ul{
+        padding: 0;
+      }
+      .filters .amenities ul {
+          padding: 1em;
+      } 
+}
