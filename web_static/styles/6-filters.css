@@ -5,7 +5,7 @@
     height: 70px;
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: center;
     margin-right: 30px;
     gap: 35px;
 }
