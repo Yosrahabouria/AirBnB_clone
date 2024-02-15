@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+"""Converting, reading and interpreating a json file"""
 import json
 from models.base_model import BaseModel
 from models.user import User
@@ -7,38 +9,39 @@ from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
 
-class FileStorage:
-    """Représente un moteur de stockage abstrait.
-    Attributs:
-        __file_path (str): Le nom du fichier pour sauvegarder les objets.
-        __objects (dict): Un dictionnaire des objets instanciés.
+
+class FileStorage():
+    """Representationg abstract storage engine
+    Attributes:
+        file_path (str): The name of the file to save objects.
+        objects_dict (dict): A dictionary of instantiated objects.
     """
-    __file_path = "file.json"
-    __objects = {}
+    file_path = "file.json"
+    objects_dict = {}
 
     def all(self):
-        """Retourne le dictionnaire __objects."""
-        return FileStorage.__objects
+        """Returns the objects dictionary."""
+        return FileStorage.objects_dict
 
     def new(self, obj):
-        """Définit dans __objects obj avec la clé <nom_classe_obj>.id."""
-        nom_classe = obj.__class__.__name__
-        FileStorage.__objects["{}.{}".format(nom_classe, obj.id)] = obj
+        """Sets the object in the dictionary."""
+        class_name = obj.__class__.__name__
+        FileStorage.objects_dict["{}.{}".format(class_name, obj.id)] = obj
 
     def save(self):
-        """Sérialise __objects dans le fichier JSON __file_path."""
-        objets_serializes = {k: v.to_dict() for k, v in FileStorage.__objects.items()}
-        with open(FileStorage.__file_path, "w") as f:
-            json.dump(objets_serializes, f)
+        """Saving method."""
+        serialized_objects = {key: value.to_dict() for key, value in FileStorage.objects_dict.items()}
+        with open(FileStorage.file_path, "w") as file:
+            json.dump(serialized_objects, file)
 
     def reload(self):
-        """Désérialise le fichier JSON __file_path vers __objects, s'il existe."""
+        """reload method"""
         try:
-            with open(FileStorage.__file_path) as f:
-                objets_charges = json.load(f)
-                for v in objets_charges.values():
-                    classe = v["__class__"]
-                    del v["__class__"]
-                    self.new(eval(classe)(**v))
+            with open(FileStorage.file_path) as file:
+                loaded_objects = json.load(file)
+                for value in loaded_objects.values():
+                    class_name = value["__class__"]
+                    del value["__class__"]
+                    self.new(eval(class_name)(**value))
         except FileNotFoundError:
             return
